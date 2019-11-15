@@ -6,6 +6,11 @@ namespace Xxx.Domain.Aggregates.Bar
 {
     public class Baz : Entity
     {
+        protected Baz()
+        {
+
+        }
+
         public Baz(string code, string description)
         {
             Code = code;

@@ -10,7 +10,7 @@ namespace Xxx.Domain.Aggregates.Bar
 
         Bar Update(Bar bar);
 
-        void Delete(int barId);
+        Task DeleteAsync(int barId, CancellationToken cancellationToken = default);
 
         Task<Bar> GetByIdAsync(int barId, CancellationToken cancellationToken = default);
     }
