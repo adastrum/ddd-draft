@@ -13,9 +13,11 @@ namespace Xxx.Infrastructure.Repositories
         public DbSet<Bar> Bars { get; set; }
         public DbSet<Baz> Bazs { get; set; }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public async Task<bool> CommitAsync(CancellationToken cancellationToken = default)
         {
-            return await base.SaveChangesAsync(cancellationToken);
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            return result > 0;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -35,7 +35,7 @@ namespace Xxx.Domain.Aggregates.Bar
 
         public int? GetFooId => _fooId;
 
-        public void SetFooId(int fooId)
+        public void SetFooId(int? fooId)
         {
             _fooId = fooId;
         }
