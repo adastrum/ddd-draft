@@ -9,6 +9,11 @@ namespace Xxx.Infrastructure.Repositories
 {
     public class XxxContext : DbContext, IUnitOfWork
     {
+        public XxxContext()
+        {
+
+        }
+
         public XxxContext(DbContextOptions<XxxContext> options) : base(options)
         {
 

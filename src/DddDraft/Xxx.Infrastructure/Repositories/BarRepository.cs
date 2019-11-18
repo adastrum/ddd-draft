@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading;
 using System.Threading.Tasks;
 using Xxx.Domain.Aggregates.Bar;
 using Xxx.Domain.Common;
@@ -35,7 +36,8 @@ namespace Xxx.Infrastructure.Repositories
         {
             return _context
                 .Bars
-                .FindAsync(barId, cancellationToken);
+                .Include(x => x.Bazs)
+                .FirstOrDefaultAsync(x => x.Id == barId, cancellationToken);
         }
 
         public Bar Update(Bar bar)

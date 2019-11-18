@@ -19,6 +19,9 @@ namespace Xxx.Infrastructure.Repositories
                 .IsRequired()
                 .HasForeignKey("BarId");
 
+            var navigation = builder.Metadata.FindNavigation(nameof(Bar.Bazs));
+            navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
+
             builder
                 .HasOne<Foo>()
                 .WithMany()

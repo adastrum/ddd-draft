@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading;
 using System.Threading.Tasks;
 using Xxx.Domain.Aggregates.Foo;
 using Xxx.Domain.Common;
@@ -26,7 +27,9 @@ namespace Xxx.Infrastructure.Repositories
 
         public Task<Foo> GetByIdAsync(int fooId, CancellationToken cancellationToken = default)
         {
-            return _context.Foos.FindAsync(fooId, cancellationToken);
+            return _context
+                .Foos
+                .FirstOrDefaultAsync(x => x.Id == fooId, cancellationToken);
         }
     }
 }
