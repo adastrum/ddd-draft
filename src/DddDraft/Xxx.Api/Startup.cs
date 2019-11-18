@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Xxx.Application.Commands;
+using Xxx.Application.Queries;
 using Xxx.Domain.Aggregates.Bar;
 using Xxx.Domain.Aggregates.Foo;
 using Xxx.Infrastructure.Queries;
@@ -34,11 +35,10 @@ namespace Xxx.Api
                 options.UseSqlServer(sqlConnectionString);
             });
 
-            var barQueryHandler = new BarQueryHandler(sqlConnectionString);
-            services.AddSingleton(barQueryHandler);
-
             services.AddScoped<IFooRepository, FooRepository>();
             services.AddScoped<IBarRepository, BarRepository>();
+            services.AddScoped<IBarService, BarService>(serviceProvider =>
+                new BarService(sqlConnectionString));
 
             services.AddMvc();
 

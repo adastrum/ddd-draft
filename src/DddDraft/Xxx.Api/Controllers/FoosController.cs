@@ -13,7 +13,7 @@ namespace Xxx.Api.Controllers
         {
         }
 
-        [HttpPost("foos")]
+        [HttpPost]
         public async Task<ActionResult> CreateFooAsync([FromBody]CreateFooCommand createFooCommand, CancellationToken cancellationToken) =>
             await HandleCommandAsync(createFooCommand, cancellationToken);
     }

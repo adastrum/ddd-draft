@@ -26,5 +26,13 @@ namespace Xxx.Api.Controllers
 
             return Ok();
         }
+
+        protected async Task<ActionResult> HandleQueryAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken)
+            where TQuery : IRequest<TResult>
+        {
+            var queryResult = await _mediator.Send(query, cancellationToken);
+
+            return Ok(queryResult);
+        }
     }
 }

@@ -2,10 +2,10 @@
 {
     public class QueryObject
     {
-        public QueryObject(string sql, object queryParameters)
+        public QueryObject(string sql, object param)
         {
             Sql = sql;
-            Param = queryParameters;
+            Param = param;
         }
 
         public string Sql { get; private set; }

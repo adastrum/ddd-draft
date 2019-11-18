@@ -1,4 +1,4 @@
-﻿namespace Xxx.Infrastructure.Queries
+﻿namespace Xxx.Application.Queries
 {
     public class BazDto
     {

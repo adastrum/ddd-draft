@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Xxx.Infrastructure.Queries
+namespace Xxx.Application.Queries
 {
     public class BarDto
     {
@@ -10,5 +10,7 @@ namespace Xxx.Infrastructure.Queries
         public DateTime Created { get; set; }
 
         public List<BazDto> Bazs { get; set; }
+
+        public FooDto Foo { get; set; }
     }
 }
