@@ -4,11 +4,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data;
+using System.Data.SqlClient;
 using System.Reflection;
 using Xxx.Application.Commands;
 using Xxx.Application.Queries;
 using Xxx.Domain.Aggregates.Bar;
 using Xxx.Domain.Aggregates.Foo;
+using Xxx.Domain.Common;
 using Xxx.Infrastructure.Queries;
 using Xxx.Infrastructure.Repositories;
 
@@ -35,16 +38,20 @@ namespace Xxx.Api
                 options.UseSqlServer(sqlConnectionString);
             });
 
-            services.AddScoped<IFooRepository, FooRepository>();
-            services.AddScoped<IBarRepository, BarRepository>();
-            services.AddScoped<IBarService, BarService>(serviceProvider =>
-                new BarService(sqlConnectionString));
+            services.Scan(scan =>
+            {
+                scan.FromAssemblyOf<XxxContext>()
+                    .AddClasses(classes => classes.AssignableToAny(typeof(IRepository<>), typeof(IQueryService)))
+                    .AsImplementedInterfaces();
+            });
+
+            services.AddTransient<IDbConnection>(serviceProvider => new SqlConnection(sqlConnectionString));
 
             services.AddMvc();
 
             services.AddSwaggerDocument();
 
-            services.AddMediatR(typeof(CreateBarCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(IQueryService).GetTypeInfo().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

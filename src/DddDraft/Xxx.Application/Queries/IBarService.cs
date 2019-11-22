@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Xxx.Application.Queries
 {
-    public interface IBarService
+    public interface IBarService : IQueryService
     {
         Task<IEnumerable<BarDto>> GetAllBarsWithFoos(CancellationToken cancellationToken = default);
     }
