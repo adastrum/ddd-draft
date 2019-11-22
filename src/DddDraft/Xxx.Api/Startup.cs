@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using Xxx.Domain.Aggregates.Foo;
 using Xxx.Domain.Common;
 using Xxx.Infrastructure.Queries;
 using Xxx.Infrastructure.Repositories;
+using Xxx.Infrastructure.Validation;
 
 namespace Xxx.Api
 {
@@ -47,11 +49,14 @@ namespace Xxx.Api
 
             services.AddTransient<IDbConnection>(serviceProvider => new SqlConnection(sqlConnectionString));
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<XxxContext>());
 
             services.AddSwaggerDocument();
 
             services.AddMediatR(typeof(IQueryService).GetTypeInfo().Assembly);
+
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

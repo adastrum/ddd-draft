@@ -13,7 +13,7 @@ namespace Xxx.Domain.Aggregates.Bar
 
         public Baz(string code, string description)
         {
-            Code = code;
+            Code = code ?? throw new ArgumentNullException(nameof(code));
             Description = description ?? throw new ArgumentNullException(nameof(description));
             Quantity = 1;
         }
