@@ -13,6 +13,8 @@ namespace Xxx.Infrastructure.Repositories
             builder.HasKey(x => x.Id);
 
             builder.OwnsOne(x => x.Name);
+
+            builder.Ignore(x => x.DomainEvents);
         }
     }
 }

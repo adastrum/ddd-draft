@@ -13,6 +13,8 @@ namespace Xxx.Infrastructure.Repositories
             builder.HasKey(x => x.Id);
 
             builder.Property("BarId").IsRequired();
+
+            builder.Ignore(x => x.DomainEvents);
         }
     }
 }

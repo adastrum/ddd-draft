@@ -27,6 +27,8 @@ namespace Xxx.Infrastructure.Repositories
                 .WithMany()
                 .IsRequired(false)
                 .HasForeignKey("FooId");
+
+            builder.Ignore(x => x.DomainEvents);
         }
     }
 }
